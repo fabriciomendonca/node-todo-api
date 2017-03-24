@@ -84,4 +84,19 @@ describe('Test GET /todos/:id', () => {
       })
       .end(done);
   });
+
+  it('should return 404 if todo not found', (done) => {
+    const hexId = new ObjectID().toHexString();
+    request(app)
+      .get(`/todos/${hexId}`)
+      .expect(404)
+      .end(done);
+  });
+
+  it('should return 400 if id is not valid', (done) => {
+    request(app)
+      .get('/todos/123')
+      .expect(400)
+      .end(done);
+  });
 });

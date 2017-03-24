@@ -31,7 +31,7 @@ app.get('/todos', (req, res) => {
 app.get('/todos/:id', (req, res) => {
   const id = req.params.id;
   if (!ObjectID.isValid(id)) {
-    return res.status(404).send('Invalid user id');
+    return res.status(400).send('Invalid user id');
   }
 
   Todo.findById(id).then((todo) => {
@@ -39,7 +39,7 @@ app.get('/todos/:id', (req, res) => {
       return res.status(404).send('Id not found')
     }
 
-    return res.status(200).send(todo);
+    return res.status(200).send({ todo });
   }).catch(e => res.status(400).send(e));
 });
 
