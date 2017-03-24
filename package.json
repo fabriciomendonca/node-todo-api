@@ -6,7 +6,11 @@
   "scripts": {
     "test": "mocha server/test/**/*.spec.js",
     "test-watch": "nodemon --exec npm run test",
-    "serve": "node server/server.js"
+    "serve": "node server/server.js",
+    "start": "node server/server.js"
+  },
+  "engine": {
+    "node": "7.7.1"
   },
   "keywords": [],
   "author": "",
