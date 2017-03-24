@@ -93,10 +93,37 @@ describe('Test GET /todos/:id', () => {
       .end(done);
   });
 
-  it('should return 400 if id is not valid', (done) => {
+  it('should return 404 if id is not valid', (done) => {
     request(app)
       .get('/todos/123')
-      .expect(400)
+      .expect(404)
+      .end(done);
+  });
+});
+
+describe('Test DELETE /todos/:id', () => {
+  it('should delete a todo', (done) => {
+    request(app)
+      .delete(`/todos/${todos[0]._id.toHexString()}`)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todo.text).toBe(todos[0].text);
+      })
+      .end(done);
+  });
+
+  it('should return 404 if todo not found', (done) => {
+    const hexId = new ObjectID().toHexString();
+    request(app)
+      .get(`/todos/${hexId}`)
+      .expect(404)
+      .end(done);
+  });
+
+  it('should return 404 if id is not valid', (done) => {
+    request(app)
+      .get('/todos/123')
+      .expect(404)
       .end(done);
   });
 });
