@@ -1,3 +1,5 @@
+const { env } = require('./config/config');
+
 var express = require('express');
 var bodyParser = require('body-parser');
 
