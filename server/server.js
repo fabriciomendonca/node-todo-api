@@ -10,7 +10,7 @@ var { User } = require('./models/user');
 var { Todo } = require('./models/todo');
 
 var app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3300;
 
 app.use(bodyParser.json());
 
@@ -83,6 +83,15 @@ app.patch('/todos/:id', (req, res) => {
     }
     res.status(200).send({ todo });
   }).catch(e => res.status(400).send(e));
+});
+
+app.post('/users', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+  var user = new User(body);
+
+  user.save().then((user) => {
+    res.send(user);
+  }).catch((e) => res.status(400).send(e));
 });
 
 app.listen(port, () => {
